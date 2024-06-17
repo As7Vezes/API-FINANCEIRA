@@ -126,6 +126,22 @@ app.get("/account", verifyIfExistsAccountCPF, (req, res) => {
     return res.json(customer);
 })
 
+app.delete("/account", verifyIfExistsAccountCPF, (req, res) => {
+    const { customer } = req;
+
+    custumers.splice(customer, 1);
+
+    return res.status(200).json(custumers);
+})
+
+app.get("/balance", verifyIfExistsAccountCPF, (req, res) => {
+    const { customer } = req;
+
+    const balance = getBalance(customer.statement);
+
+    return res.json(balance);
+})
+
 const port = 3000;
 
 app.listen(port, () => {
